@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="{% url 'main' %}">Назад на главную</a>
+    <form action="{% url 'addmusic' %}" method="post">
+    	{% csrf_token %}
+        <p><b>Добавление музыки</b><br>
+        <p><b>Название:</b><br>
+        <input type="text" name="title">
+        <p><b>Автор:</b><br>
+        <input type="text" name="artist">
+        <p><b>Имя файла (в static):</b><br>
+        <input type="text" name="path_to_file">
+    	<button type="submit">Добавить</button>
+    </form>
+    <p>{{info}}</p>
+</body>
+</html>

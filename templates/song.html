@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="{% url 'main' %}">Назад на главную</a>
+    <div>
+    	<h4>{{ song.artist }} - {{ song.title }}</h4>
+	    <audio controls>
+	        <source src="/static/{{ song.path_to_file }}" type="audio/mp3">
+	    </audio>
+    </div>
+    <h4>Нравится {{song.favorite_by.count}} людям</h4>
+        {% if user in song.favorite_by.all %}
+            <p>Вы добавили в свои фавориты эту песню!</p>
+        {% else %}
+            <form action="{% url 'add_to_favorites' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="song_id" value="{{ song.id }}">
+                <button type="submit">Add to favorites</button>
+            </form>
+        {% endif %}
+</body>
+</html>
